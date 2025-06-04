@@ -116,6 +116,7 @@ SELECT AVG(qty), MAX(qty), MIN(qty) FROM tr_penjualan;
 -- mengkombinasikan fungsi agregasi dengan kolom tertentu (nama produk, kolom tanggal transaksi)
 SELECT tgl_transaksi, nama_produk, MAX(qty) FROM tr_penjualan;
 
+
 -- praktek 12
 -- di gunakan nilai yang unnik saja
 -- hiitung nilai unik pada nama produk
@@ -137,7 +138,6 @@ SELECT nama_produk FROM tr_penjualan GROUP BY nama_produk;
 
 -- praktek 15
 -- mengelompokkan nilai dama produk dan qty pada tebel penjualan
-
 -- pakai
 SELECT nama_produk, qty FROM tr_penjualan GROUP BY nama_produk, qty; 
 -- tidak pakai
@@ -161,6 +161,32 @@ FROM tr_penjualan
 GROUP BY nama_produk
 HAVING SUM(qty) > 2
 ORDER BY SUM(qty) DESC;
+
+
+-- latihan mandiri
+-- melihat daftar nama produk yang total jumlah produk terjual perkelompok nama produk adalah di atas nilai 4
+SELECT nama_produk, SUM(qty) AS total_terjual
+FROM tr_penjualan
+GROUP BY nama_produk
+HAVING SUM(qty) > 4
+ORDER BY total_terjual DESC;
+
+-- melihat daftar nama produk yang total jumlah produk terjual perkelompok nama produk sama dengan 9
+SELECT nama_produk, SUM(qty) AS total_terjual
+FROM tr_penjualan
+GROUP BY nama_produk
+HAVING SUM(qty) = 9
+ORDER BY total_terjual DESC;
+
+-- melihat daftar kelompok nama produk dan total nilai penjualan (harga dikalikan jummlah dikurangi diskon )
+-- dengan dan urutkan berdasarkan nilai penjualan terbesar
+SELECT nama_produk, SUM(harga * qty - (diskon_persen / 100) * harga * qty) AS total_penjualan
+FROM tr_penjualan
+GROUP BY nama_produk
+ORDER BY total_penjualan DESC;
+
+
+
 
 
 
